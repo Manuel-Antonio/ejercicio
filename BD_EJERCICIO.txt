@@ -1,0 +1,27 @@
+CREATE DATABASE bd_ejercicio;
+use bd_ejercicio;
+
+CREATE TABLE IF NOT EXISTS Cliente(
+id int NOT NULL AUTO_INCREMENT COMMENT 'Id de Cliente',
+nombre varchar(100) NOT NULL COMMENT 'Nombres del Cliente',
+correo varchar(100) NOT NULL COMMENT 'correo del Cliente' UNIQUE,
+PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS Factura(
+id int NOT NULL AUTO_INCREMENT COMMENT 'Id de Factura',
+numero int NOT NULL COMMENT 'Numero de Factura unico' UNIQUE,
+fecha_emision DATE NOT NULL COMMENT 'Fecha emision Factura' ,
+cliente_id int NOT NULL COMMENT 'Codigo de Cliente',
+PRIMARY KEY (`id`),
+FOREIGN KEY (cliente_id) REFERENCES Cliente(id)
+);
+
+CREATE TABLE IF NOT EXISTS DetalleFactura (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    factura_id INT,
+    producto VARCHAR(150) NOT NULL,
+    cantidad INT NOT NULL,
+    precio_unitario DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (factura_id) REFERENCES Factura(id)
+);
